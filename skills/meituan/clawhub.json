@@ -1,0 +1,60 @@
+{
+  "name": "meituan",
+  "version": "2.0.0",
+  "description": "Browser automation skill for Meituan food delivery and local services. Search restaurants, browse menus, check reviews, compare delivery options, and generate order previews.",
+  "author": "harrylabsj",
+  "license": "MIT",
+  "repository": "https://github.com/harrylabsj/meituan",
+  "keywords": [
+    "meituan",
+    "food-delivery",
+    "waimai",
+    "外卖",
+    "browser-automation",
+    "local-services",
+    "restaurant",
+    "order"
+  ],
+  "category": "shopping",
+  "entry": "SKILL.md",
+  "capabilities": {
+    "browser_automation": true,
+    "features": [
+      {
+        "name": "search-restaurants",
+        "description": "Search for restaurants, stores, and local services by name, cuisine, or category"
+      },
+      {
+        "name": "browse-menus",
+        "description": "View menu items, prices, descriptions, and available options"
+      },
+      {
+        "name": "check-reviews",
+        "description": "View merchant ratings, review counts, and customer feedback"
+      },
+      {
+        "name": "compare-delivery",
+        "description": "Compare delivery time, delivery fee, minimum order, and promotions across merchants"
+      },
+      {
+        "name": "add-to-cart",
+        "description": "Add items to cart with options/variants selected"
+      },
+      {
+        "name": "apply-coupons",
+        "description": "Check available coupons, red packets, and promotion conditions"
+      },
+      {
+        "name": "order-preview",
+        "description": "Preview order total with all fees, discounts, and final price"
+      }
+    ]
+  },
+  "requirements": {
+    "tools": ["browser"],
+    "permissions": ["web-access"]
+  },
+  "compatibility": {
+    "openclaw": ">=1.0.0"
+  }
+}

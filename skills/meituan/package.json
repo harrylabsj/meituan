@@ -1,0 +1,36 @@
+{
+  "name": "@openclaw/meituan",
+  "version": "2.0.0",
+  "description": "Browser automation skill for Meituan food delivery and local services",
+  "keywords": [
+    "meituan",
+    "food-delivery",
+    "waimai",
+    "browser-automation",
+    "openclaw-skill"
+  ],
+  "author": "harrylabsj",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harrylabsj/meituan.git"
+  },
+  "bugs": {
+    "url": "https://github.com/harrylabsj/meituan/issues"
+  },
+  "homepage": "https://github.com/harrylabsj/meituan#readme",
+  "openclaw": {
+    "skill": true,
+    "version": "2.0.0",
+    "category": "shopping",
+    "capabilities": [
+      "search-restaurants",
+      "browse-menus",
+      "check-reviews",
+      "compare-delivery",
+      "add-to-cart",
+      "apply-coupons",
+      "order-preview"
+    ]
+  }
+}
