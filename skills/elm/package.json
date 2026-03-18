@@ -1,0 +1,36 @@
+{
+  "name": "elm-skill",
+  "version": "2.0.0",
+  "description": "Browser automation skill for Eleme (饿了么) food delivery platform",
+  "main": "SKILL.md",
+  "keywords": [
+    "eleme",
+    "饿了么",
+    "food-delivery",
+    "browser-automation",
+    "takeout",
+    "外卖"
+  ],
+  "author": "harrylabsj",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harrylabsj/elm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/harrylabsj/elm/issues"
+  },
+  "homepage": "https://github.com/harrylabsj/elm#readme",
+  "openclaw": {
+    "skill": true,
+    "version": "2.0.0",
+    "category": "food-delivery",
+    "capabilities": [
+      "browser-automation",
+      "restaurant-search",
+      "menu-browsing",
+      "price-comparison",
+      "coupon-optimization"
+    ]
+  }
+}

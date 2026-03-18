@@ -1,0 +1,48 @@
+{
+  "name": "elm",
+  "version": "2.0.0",
+  "description": "Browser automation skill for Eleme (饿了么) food delivery - search restaurants, browse menus, compare delivery options, and optimize orders with coupons",
+  "author": "harrylabsj",
+  "license": "MIT",
+  "keywords": [
+    "eleme",
+    "饿了么",
+    "food-delivery",
+    "takeout",
+    "外卖",
+    "browser-automation",
+    "restaurant",
+    "order"
+  ],
+  "category": "lifestyle",
+  "subcategory": "food-delivery",
+  "repository": "https://github.com/harrylabsj/elm",
+  "entry": "SKILL.md",
+  "capabilities": {
+    "browser_automation": true,
+    "requires_auth": true,
+    "supports_login": false
+  },
+  "triggers": [
+    "饿了么",
+    "点外卖",
+    "eleme",
+    "外卖",
+    "food delivery",
+    "order food"
+  ],
+  "features": [
+    "Search restaurants by cuisine, location, rating",
+    "Browse menus with live pricing",
+    "Check customer reviews and ratings",
+    "Compare delivery time, fee, and minimum order",
+    "Add items to cart with options",
+    "Apply coupons and red packets",
+    "Generate order preview with savings breakdown"
+  ],
+  "quality": {
+    "tested": false,
+    "documentation": "complete",
+    "maintenance": "active"
+  }
+}
