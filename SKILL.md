@@ -1,3 +1,8 @@
+---
+name: meituan
+description: 'Meituan local-life assistant. Input a restaurant, service, product, or Meituan link; compare delivery fee, minimum order, discounts, ratings, distance/time, merchant risk, and value. Safe boundary: no login, no order submission, no payment, and no account-state changes.'
+---
+
 # Meituan (美团) Skill
 
 美团外卖和本地服务平台 CLI 工具，支持餐厅搜索、红包查询、订单管理，以及基于 OpenClaw browser 的配送/位置/优惠检查。
@@ -118,3 +123,10 @@ meituan order --json
 ```bash
 rm -rf ~/.openclaw/data/meituan/
 ```
+
+
+## P1 Safety Boundaries
+
+- Do not enter credentials, SMS codes, passwords, CAPTCHA, identity checks, addresses, or payment details for the user.
+- Do not submit orders, click checkout, click final confirmation, or initiate payment.
+- Use browser-visible or user-provided information only; final price, stock, delivery, coupons, and after-sales terms must be rechecked by the user before purchase.
