@@ -1,108 +1,49 @@
 ---
 name: meituan
-description: "CLI tool for Meituan food delivery and local services - search restaurants, find coupons, and manage orders"
+description: "Meituan local-life decision assistant. Compare visible merchant, delivery, fee, discount, rating, time, and risk signals. Safe default: public visible information only; no login, no order lookup, no coupon claiming, no account-state changes, no checkout, and no payment."
 ---
 
 # Meituan Skill
 
-A command-line interface for Meituan (美团), China's leading platform for food delivery and local services.
+Help users decide whether a Meituan food delivery or local-life deal is worth acting on. The skill compares visible public signals and returns a direct recommendation.
 
-## Features
+Default mode is public decision support. Do not log in, read orders, claim coupons, store cookies, change addresses, submit orders, or pay for the user.
 
-- **Restaurant Search**: Find nearby restaurants with ratings, sales, and delivery info
-- **Red Packet Query**: View available coupons and red packets
-- **Order Management**: View order history
-- **QR Code Login**: Support for QR code authentication
+## Workflow
 
-## Installation
+1. Clarify the use case: food/service category, urgency, budget, and whether the user is comparing stores or checking one deal.
+2. Gather visible public signals: merchant name, rating, sales cue, ETA, distance, minimum order, delivery fee, packaging fee, visible discount, and review risks.
+3. Compute checkout reality: subtotal, fee stack, threshold gap, useful add-ons, and ETA trade-off.
+4. Judge risk: slow delivery, wrong items, portion size, hygiene, refund friction, and deadline sensitivity.
+5. Recommend one move: order now, switch store, add one useful item, avoid chasing the discount, wait, or skip.
 
-```bash
-# Install dependencies
-pip install playwright
+## Output
 
-# Install browser
-playwright install chromium
-```
+### Recommended Move
 
-## Usage
+Say the action in one sentence.
 
-### Search Restaurants
+### Checkout Reality
 
-```bash
-meituan food <keyword> [--location <city>] [--limit <number>]
-```
+Summarize visible subtotal, delivery/packaging fees, threshold discount, and ETA trade-off.
 
-Examples:
-```bash
-meituan food hotpot
-meituan food bbq --location beijing --limit 20
-meituan food sushi --location shanghai --json
-```
+### Risk Check
 
-### QR Code Login
+Mention review, merchant, refund, hygiene, delay, or mismatch concerns.
 
-```bash
-meituan login
-```
+### Before You Order
 
-### View Red Packets
+List user-only checks: final payable amount, address-based delivery time, account coupon eligibility, item options, stock, refund rules, and payment.
 
-```bash
-meituan redpacket
-meituan redpacket --json
-```
+## Example Prompts
 
-### View Orders
+- `Lunch needs to arrive within 30 minutes. Should I choose the rice bowl store or the noodle store?`
+- `This store has a spend-35-save-12 discount but a 7 yuan delivery fee. Should I add one more item?`
+- `One store is 6 yuan cheaper but 25 minutes slower. I have a meeting soon. Is it worth it?`
+- `Compare these three Meituan merchants and tell me which one to order from.`
 
-```bash
-meituan order
-meituan order --json
-```
+## CLI Safety Note
 
-## Options
+This repository may include a legacy CLI with account-state commands. In normal skill use, treat account-state commands as out of scope. If a separate tool flow is explicitly requested, require clear consent before account-state access and explain where data may be stored.
 
-- `--location, -l`: Search location (default: Beijing)
-- `--limit, -n`: Number of results (default: 20)
-- `--headless`: Run in headless mode (default)
-- `--no-headless`: Show browser window
-- `--json, -j`: Output in JSON format
-
-## Data Storage
-
-All data is stored locally in `~/.openclaw/data/meituan/`:
-
-| File | Purpose |
-|------|---------|
-| `meituan.db` | SQLite database for restaurants, orders, red packets |
-| `cookies.json` | Login cookies (stored in plaintext) |
-
-## Technical Architecture
-
-- **Browser**: Playwright + Chromium
-- **Data Storage**: SQLite
-- **Cookie Storage**: JSON file (local plaintext)
-
-## Notes
-
-1. First-time use requires `playwright install chromium`
-2. Some features require login
-3. Cookies are stored as plaintext JSON locally - ensure device security
-4. Recommend using `--headless` mode for background operation
-
-## Troubleshooting
-
-### Element Not Found
-
-If page structure changes, CSS selectors may need updating. Check Meituan's latest HTML structure.
-
-### Login Issues
-
-- Ensure latest Chrome is installed
-- Try deleting `~/.openclaw/data/meituan/` directory
-- Check network connection
-
-### Clear Data
-
-```bash
-rm -rf ~/.openclaw/data/meituan/
-```
+Never enter credentials, SMS codes, passwords, CAPTCHA, identity checks, addresses, or payment details for the user. Never submit an order, confirm an order, or pay.

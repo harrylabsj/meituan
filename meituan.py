@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""美团助手 - 支持外卖搜索、红包、订单"""
+"""美团助手 - 默认只做公开外卖搜索；账号态命令必须显式授权。"""
 
 import argparse
 import asyncio
@@ -54,9 +54,10 @@ class MeituanClient:
     
     BASE_URL = "https://www.meituan.com"
     
-    def __init__(self):
+    def __init__(self, allow_account_state: bool = False):
         self.browser: Optional[Browser] = None
         self.page: Optional[Page] = None
+        self.allow_account_state = allow_account_state
         self.db = self._init_db()
     
     def _init_db(self) -> sqlite3.Connection:
@@ -112,8 +113,8 @@ class MeituanClient:
             user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
         )
         
-        # 加载cookies
-        if COOKIES_FILE.exists():
+        # 只在用户显式允许账号态访问时加载 cookies。
+        if self.allow_account_state and COOKIES_FILE.exists():
             with open(COOKIES_FILE, 'r') as f:
                 cookies = json.load(f)
             await context.add_cookies(cookies)
@@ -134,6 +135,8 @@ class MeituanClient:
     
     async def login(self):
         """扫码登录"""
+        if not self.allow_account_state:
+            raise PermissionError("login requires --allow-account-state")
         await self.init_browser(headless=False)
         
         print("正在打开美团登录页面...")
@@ -257,6 +260,8 @@ class MeituanClient:
     
     async def get_redpackets(self) -> List[dict]:
         """获取红包"""
+        if not self.allow_account_state:
+            raise PermissionError("redpacket requires --allow-account-state")
         if not self.page:
             await self.init_browser()
         
@@ -296,6 +301,8 @@ class MeituanClient:
     
     async def get_orders(self) -> List[Order]:
         """获取订单"""
+        if not self.allow_account_state:
+            raise PermissionError("order requires --allow-account-state")
         if not self.page:
             await self.init_browser()
         
@@ -424,10 +431,24 @@ async def main():
     parser.add_argument("--headless", action="store_true", default=True, help="无头模式")
     parser.add_argument("--no-headless", action="store_false", dest="headless", help="显示浏览器")
     parser.add_argument("--json", "-j", action="store_true", help="JSON输出")
+    parser.add_argument(
+        "--allow-account-state",
+        action="store_true",
+        help="显式允许登录态命令读取/保存 cookies、红包或订单数据；默认禁止",
+    )
     
     args = parser.parse_args()
     
-    client = MeituanClient()
+    sensitive_commands = {"login", "redpacket", "order"}
+    if args.command in sensitive_commands and not args.allow_account_state:
+        print(
+            "拒绝执行账号态命令。请确认你确实要访问登录态数据，并显式添加 "
+            "--allow-account-state。不要在聊天中提供密码、验证码、身份信息或支付信息。",
+            file=sys.stderr,
+        )
+        sys.exit(2)
+    
+    client = MeituanClient(allow_account_state=args.allow_account_state)
     
     if args.command == "login":
         await client.login()
